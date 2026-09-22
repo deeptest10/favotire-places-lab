@@ -1,0 +1,28 @@
+{% extends "places/base.html" %}
+
+{% block title %}{{ site_name }}{% endblock %}
+
+{% block content %}
+    <h1>{{ site_name }}</h1>
+
+    <p>{{ description }}</p>
+
+    <form method="get" action="{% url 'places:home' %}">
+        <button type="submit" name="pick" value="1">
+            Куди піти сьогодні?
+        </button>
+    </form>
+
+    {% if selected_place %}
+        <h2>Сьогодні можна піти сюди:</h2>
+
+        {% include "places/includes/place_card.html" with place=selected_place only %}
+
+    {% elif selection_requested %}
+        <p>Спочатку додайте хоча б одне місце</p>
+
+        <a href="{% url 'places:add' %}">
+            Додати місце
+        </a>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,40 @@
+{% load static %}
+<article>
+    
+
+    <h2>
+        <a href="{% url 'places:detail' place_id=place.id %}">
+            {{ place.name }}
+        </a>
+    </h2>
+
+    <img src="{% static 'places/images/default.jpg' %}" alt="Ілюстрація до місця" width="320">
+
+    <p>{{ place.description|truncatewords:8 }}</p>
+
+    <p>Тип: {{ place.place_type }}</p>
+
+    <p>
+        Локаціч:
+        {% if place.location %}
+            {{ place.location }}
+        {% else %}
+            Secret place ^^
+        {% endif %}
+    </p>
+
+    <p>
+    Рейтинг:
+        <span>
+            {% for star in "12345" %}
+                {% if forloop.counter <= place.rating %}
+                    ★
+                {% else %}
+                    ☆
+                {% endif %}
+            {% endfor %}
+        </span>
+    </p>
+
+    <p>Дата створення відгуку: {{ place.created_at }}</p>
+</article>

@@ -1,0 +1,46 @@
+{% extends "places/base.html" %}
+{% load static %}
+
+{% block title %}{{ place.name }}{% endblock %}
+
+{% block content %}
+    <article>
+        <h1>{{ place.name }}</h1>
+
+        <img
+            src="{% static 'places/images/default.jpg' %}"
+            alt="Ілюстрація до місця"
+            width="320"
+        >
+
+        <p>{{ place.description }}</p>
+
+        <p>Тип: {{ place.place_type }}</p>
+
+        <p>
+            Локація:
+            {% if place.location %}
+                {{ place.location }}
+            {% else %}
+                Secret place ^^
+            {% endif %}
+        </p>
+
+        <p>
+        Рейтинг:
+            <span>
+                {% for star in "12345" %}
+                    {% if forloop.counter <= place.rating %}
+                        ★
+                    {% else %}
+                        ☆
+                    {% endif %}
+                {% endfor %}
+            </span>
+        </p>
+
+        <p>Дата створення відгуку: {{ place.created_at }}</p>
+    </article>
+
+    <a href="{% url 'places:list' %}">Повернутися до списку</a>
+{% endblock %}
