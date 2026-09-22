@@ -1,0 +1,17 @@
+{% extends "places/base.html" %}
+
+{% block title %}Мої місця{% endblock %}
+
+{% block content %}
+    <h1>Мої улюблені місця</h1>
+
+    <p>
+        <a href="{% url 'places:add' %}">Додати нове місце</a>
+    </p>
+
+    {% for place in places %} 
+        {% include "places/includes/place_card.html" with place=place only %}
+    {% empty %}
+        <p>Ви ще не додали ні одногг місця.</p>
+    {% endfor %}
+{% endblock %}
